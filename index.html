@@ -22,14 +22,15 @@
                     redirect: 'follow',
                     headers: myHeaders
                     };
+                    if (currency != undefined) {
+                        fetch(`https://api.apilayer.com/exchangerates_data/convert?to=USD&from=${currency}&amount=${amount}`, requestOptions)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.querySelector("#result").innerHTML = `${amount} ${currency}  = ${data.result} USD `
 
-                    fetch(`https://api.apilayer.com/exchangerates_data/convert?to=USD&from=${currency}&amount=${amount}`, requestOptions)
-                    .then(response => response.json())
-                    .then(data => {
-                        document.querySelector("#result").innerHTML = `${amount} ${currency}  = ${data.result} USD `
-                        
-                    })
-                    .catch(error => console.log('error', error));
+                        })
+                        .catch(error => console.log('error', error)); } else {
+                            document.querySelector("#result").innerHTML = "Invalid Currency"
 
                 return false;
             }
